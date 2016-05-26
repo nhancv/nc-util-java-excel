@@ -7,7 +7,12 @@ public class Home {
     public static void main( String[] args ) throws Exception
     {
         System.out.println("hello");
-        new ExcelUtils("files/root.xls", new HandleImpl());
+//        new ExcelUtils("files/root.xls", new HandleImpl());
+        FileUtils fileUtils = new FileUtils(Conf.subFolder);
+        fileUtils.getSubFiles();
+
         System.out.println("complete");
+
+
     }
 }

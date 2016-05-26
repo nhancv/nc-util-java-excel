@@ -11,13 +11,12 @@ import java.io.FileOutputStream;
  */
 public class ExcelUtils {
 
-    File file;
-
+    FileUtils fileUtils;
     public ExcelUtils(String path, Handle handle) throws Exception {
-        file = new File(path);
-        Workbook workbook = WorkbookFactory.create(new FileInputStream(file));
+        fileUtils = new FileUtils(Conf.rootFilePath);
+        Workbook workbook = WorkbookFactory.create(new FileInputStream(fileUtils.getFile()));
         Sheet sheet = workbook.getSheetAt(0);
-        handle.comparefile(sheet);
+        handle.compareFile(sheet);
         FileOutputStream outFile = new FileOutputStream(new File("test_tmp.xls"));
         workbook.write(outFile);
         outFile.close();
