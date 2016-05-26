@@ -49,15 +49,20 @@ public class FromGUI extends JDialog {
 
     private void onOK() {
 
-        String intro = "EXCEL UTIL\nExcel matching first column\nAuthor: Nhan Cao\nEmail: caovannhan2002@gmail.com";
-        System.out.println(intro);
-        System.out.println("-Begin-");
-        try {
-            new ExcelUtils(Conf.rootFilePath, new HandleImpl());
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        System.out.println("-Complete-");
+        new Thread(new Runnable() {
+            public void run() {
+                String intro = "EXCEL UTIL\nExcel matching first column\nAuthor: Nhan Cao\nEmail: caovannhan2002@gmail.com";
+                System.out.println(intro);
+                System.out.println("-Begin-");
+                try {
+                    new ExcelUtils(Conf.rootFilePath, new HandleImpl());
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                }
+                System.out.println("-Complete-");
+            }
+        }).start();
+
     }
 
     private void onClose() {
