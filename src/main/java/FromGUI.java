@@ -1,5 +1,9 @@
+import com.google.gson.Gson;
+
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 public class FromGUI extends JDialog {
@@ -54,10 +58,18 @@ public class FromGUI extends JDialog {
                 String intro = "EXCEL UTIL\nExcel matching first column\nAuthor: Nhan Cao\nEmail: caovannhan2002@gmail.com";
                 System.out.println(intro);
                 System.out.println("-Begin-");
+                Conf config = null;
+                try {
+                    config = new Gson().fromJson(new InputStreamReader(new FileInputStream(Conf.cfgFilePath)), Conf.class);
+                    System.out.println("Root file: " + config._rootFileName);
+                    config.refreshRootPath();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 try {
                     new ExcelUtils(Conf.rootFilePath, new HandleImpl());
                 } catch (Exception e) {
-                    System.out.println(e.toString());
+                    e.printStackTrace();
                 }
                 System.out.println("-Complete-");
             }
