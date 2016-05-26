@@ -6,12 +6,16 @@ public class Home {
 
     public static void main( String[] args ) throws Exception
     {
-        String intro = "EXCEL UTIL\nExcel matching first column\nAuthor: Nhan Cao\nEmail: caovannhan2002@gmail.com";
-        System.out.println(intro);
-        System.out.println("-Begin-");
-        new ExcelUtils(Conf.rootFilePath, new HandleImpl());
-        System.out.println("-Complete-");
+//        String intro = "EXCEL UTIL\nExcel matching first column\nAuthor: Nhan Cao\nEmail: caovannhan2002@gmail.com";
+//        System.out.println(intro);
+//        System.out.println("-Begin-");
+//        new ExcelUtils(Conf.rootFilePath, new HandleImpl());
+//        System.out.println("-Complete-");
 
+        frmGUI dialog = new frmGUI();
+        dialog.pack();
+        dialog.setVisible(true);
+        System.exit(0);
 
     }
 }
