@@ -62,6 +62,7 @@ public class FromGUI extends JDialog {
                 try {
                     config = new Gson().fromJson(new InputStreamReader(new FileInputStream(Conf.cfgFilePath)), Conf.class);
                     System.out.println("Root file: " + config._rootFileName);
+                    System.out.println("Root file: " + config._rootColSel);
                     config.refreshRootPath();
                 } catch (Exception e) {
                     e.printStackTrace();

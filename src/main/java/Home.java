@@ -6,7 +6,7 @@ import java.awt.*;
 public class Home {
 
 
-    public static void main( String[] args ) throws Exception
+    public static void main(String[] args)
     {
         FromGUI dialog = new FromGUI();
         dialog.setTitle("Excel Utils");
