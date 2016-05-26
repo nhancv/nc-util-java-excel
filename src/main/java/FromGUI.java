@@ -58,11 +58,10 @@ public class FromGUI extends JDialog {
                 String intro = "EXCEL UTIL\nExcel matching first column\nAuthor: Nhan Cao\nEmail: caovannhan2002@gmail.com";
                 System.out.println(intro);
                 System.out.println("-Begin-");
-                Conf config = null;
+                Conf config;
                 try {
                     config = new Gson().fromJson(new InputStreamReader(new FileInputStream(Conf.cfgFilePath)), Conf.class);
                     System.out.println("Root file: " + config._rootFileName);
-                    System.out.println("Root file: " + config._rootColSel);
                     config.refreshRootPath();
                 } catch (Exception e) {
                     e.printStackTrace();
