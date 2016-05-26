@@ -9,37 +9,39 @@ import java.util.ArrayList;
  */
 public class HandleImpl implements Handle {
 
-    static Row row;
-
-    public void compareFile(Workbook workbook) throws Exception {
-        Sheet sheet = workbook.getSheetAt(0);
-
+    public void compareFile(Workbook workbook, File file) throws Exception {
+        final Sheet sheet = workbook.getSheetAt(0);
+        final CellStyle cellStyleMatch = workbook.createCellStyle();
+        cellStyleMatch.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+        cellStyleMatch.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        
         FileUtils fileUtils = new FileUtils(Conf.subFolder);
         ArrayList<File> subFiles = fileUtils.getSubFiles();
-        for (final File item : subFiles) {
-            System.out.println(item.getPath());
+        for (File item : subFiles) {
+            System.out.println("Process: " + item.getPath());
             new ExcelUtils(item.getPath(), new Handle() {
-                public void compareFile(Workbook workbook) throws Exception {
-                    Sheet sheet = workbook.getSheetAt(0);
-                    Cell cell = sheet.getRow(0).getCell(0);
-                    CellStyle cellStyle = workbook.createCellStyle();
-                    cellStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
-                    cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
-                    cell.setCellStyle(cellStyle);
-                    workbook.write(new FileOutputStream(item));
+                public void compareFile(Workbook workbook, File file) throws Exception {
+                    Sheet subSheet = workbook.getSheetAt(0);
+                    final CellStyle subCellStyleMatch = workbook.createCellStyle();
+                    subCellStyleMatch.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+                    subCellStyleMatch.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                    for (Row subRow : subSheet) {
+                        Cell subCell = subRow.getCell(0);
+                        for (Row row : sheet) {
+                            Cell cell = row.getCell(0);
+                            if (getCellValue(subCell).toUpperCase().equals(getCellValue(cell).toUpperCase())) {
+                                subCell.setCellStyle(subCellStyleMatch);
+                                cell.setCellStyle(cellStyleMatch);
+                            }
+                        }
+                    }
+                    workbook.write(new FileOutputStream(file));
                 }
             });
         }
 
-        for (Row aSheet : sheet) {
-            row = aSheet;
-            Cell cell = row.getCell(0);
-//            cell.setCellValue("nhancv");
-            System.out.println(getCellValue(cell));
-        }
-        FileOutputStream outFile = new FileOutputStream(new File(Conf.outFilePath));
-        workbook.write(outFile);
-        outFile.close();
+        workbook.write(new FileOutputStream(file));
+
     }
 
     public String getCellValue(Cell cell) {

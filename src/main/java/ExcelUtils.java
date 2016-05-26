@@ -13,7 +13,7 @@ public class ExcelUtils {
     public ExcelUtils(String path, Handle handle) throws Exception {
         fileUtils = new FileUtils(path);
         Workbook workbook = WorkbookFactory.create(new FileInputStream(fileUtils.getFile()));
-        handle.compareFile(workbook);
+        handle.compareFile(workbook, fileUtils.getFile());
     }
 
 
