@@ -1,7 +1,4 @@
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,7 +22,10 @@ public class HandleImpl implements Handle {
                 public void compareFile(Workbook workbook) throws Exception {
                     Sheet sheet = workbook.getSheetAt(0);
                     Cell cell = sheet.getRow(0).getCell(0);
-                    cell.setCellValue("nhancv");
+                    CellStyle cellStyle = workbook.createCellStyle();
+                    cellStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+                    cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                    cell.setCellStyle(cellStyle);
                     workbook.write(new FileOutputStream(item));
                 }
             });
