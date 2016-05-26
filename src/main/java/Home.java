@@ -7,5 +7,7 @@ public class Home {
     public static void main( String[] args ) throws Exception
     {
         System.out.println("hello");
+        new ExcelUtils("files/root.xls", new HandleImpl());
+        System.out.println("complete");
     }
 }
