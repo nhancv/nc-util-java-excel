@@ -34,10 +34,22 @@ public class HandleImpl implements Handle {
         for (Row aSheet : sheet) {
             row = aSheet;
             Cell cell = row.getCell(0);
-            cell.setCellValue("nhancv");
+//            cell.setCellValue("nhancv");
+            System.out.println(getCellValue(cell));
         }
         FileOutputStream outFile = new FileOutputStream(new File(Conf.outFilePath));
         workbook.write(outFile);
         outFile.close();
+    }
+
+    public String getCellValue(Cell cell) {
+        switch (cell.getCellType()) {
+            case Cell.CELL_TYPE_NUMERIC:
+                return cell.getNumericCellValue() + "";
+            case Cell.CELL_TYPE_STRING:
+                return cell.getStringCellValue() + "";
+            default:
+                return "";
+        }
     }
 }
